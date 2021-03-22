@@ -1,9 +1,9 @@
 require 'bookmark'
 
 describe Bookmark do
-  it 'stores all instances in a class variable' do
-    google = Bookmark.new
-    linkedin = Bookmark.new
-    expect(Bookmark.all).to include(google, linkedin)
+  describe '#all' do
+    it "returns all url's from bookmark database" do
+      expect(Bookmark.all).to include("http://www.google.com")
+    end 
   end
 end
