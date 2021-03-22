@@ -1,9 +1,18 @@
 class Bookmark
-  @@bookmark_list = ["google.com","reddit.com","bbc.com"]
+
+  require 'pg'
 
   def self.all
-    @@bookmark_list
+    conn = PG.connect( dbname: 'bookmark_manager' )
+    conn.exec( "SELECT * FROM bookmarks" ) do |result|
+      puts "     ID | URL     "
+        result.each do |row|
+          puts " %1d | %-16s " %
+          row.values_at('id', 'url')
+        end
+    end 
   end
+
 
   def initialize
     @@bookmark_list << self
