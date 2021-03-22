@@ -1,5 +1,5 @@
 class Bookmark
-  @@bookmark_list = []
+  @@bookmark_list = ["google.com","reddit.com","bbc.com"]
 
   def self.all
     @@bookmark_list

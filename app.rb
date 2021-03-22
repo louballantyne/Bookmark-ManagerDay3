@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'pg'
 
 class BookmarksManager < Sinatra::Base
 
