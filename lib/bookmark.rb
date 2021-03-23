@@ -7,7 +7,7 @@ class Bookmark
 
   def self.all
     @bookmarks = []
-    conn = PG.connect( dbname: 'bookmark_manager' )
+    conn = PG.connect( dbname: ENV['DATABASE'] )
     conn.exec( "SELECT * FROM bookmarks" ) do |result|
       result.each do |row|
         row.values_at('url').each{ |value| @bookmarks << value}
