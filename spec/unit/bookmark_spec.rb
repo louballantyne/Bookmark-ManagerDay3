@@ -2,8 +2,8 @@ require 'bookmark'
 
 describe Bookmark do
   describe '#all' do
-    it "returns all url's from bookmark database" do
-      expect(Bookmark.all).to include("http://www.google.com")
-    end 
+    it "returns urls from bookmark database" do
+      expect(Bookmark.all).to include("www.google.com")
+    end
   end
 end

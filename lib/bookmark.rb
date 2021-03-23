@@ -1,16 +1,29 @@
+require 'pg'
+
 class Bookmark
 
-  require 'pg'
+@@bookmark_list = []
+# Class methods
 
   def self.all
+    @bookmarks = []
     conn = PG.connect( dbname: 'bookmark_manager' )
     conn.exec( "SELECT * FROM bookmarks" ) do |result|
-      puts "Bookmarks:"
-        result.each do |row|
-          puts "%-16s" %
-          row.values_at('url')
-        end
-    end 
+      result.each do |row|
+        row.values_at('url').each{ |value| @bookmarks << value}
+      end
+    end
+    conn.close if conn
+    return @bookmarks
+  end
+
+  def self.print
+    returnstring = ""
+    Bookmark.all
+    @bookmarks.each do |url|
+      returnstring << "#{url}<br>"
+    end
+    return returnstring
   end
 
   def initialize

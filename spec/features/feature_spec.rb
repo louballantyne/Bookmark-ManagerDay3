@@ -11,6 +11,6 @@ feature '/bookmark' do
   scenario 'should serve bookmark page' do
     visit '/bookmark'
     expect(page).to have_content("Your Bookmarks:")
-    expect(page).to have_content("Google")
+    expect(page).to have_content("google")
   end
 end
