@@ -8,13 +8,17 @@ class Bookmark
   def self.all
     @bookmarks = []
     conn = PG.connect( dbname: ENV['DATABASE'] )
-    conn.exec( "SELECT * FROM bookmarks" ) do |result|
-      result.each do |row|
-        row.values_at('url').each{ |value| @bookmarks << value}
-      end
+    conn.exec( "SELECT * FROM bookmarks").map do |bookmark|
+      @bookmarks << "#{bookmark['title']}: #{bookmark['url']}"
     end
+        #row.values_at('url').each{ |value| @bookmarks << value}
     conn.close if conn
     return @bookmarks
+  end
+
+  def self.create(title, url)
+    conn = PG.connect(dbname: ENV['DATABASE'])
+    conn.exec("INSERT INTO bookmarks(title, url) VALUES ('#{title}', '#{url}')")
   end
 
   def self.print
