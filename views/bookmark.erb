@@ -1,7 +1,15 @@
 
 <h1> Your Bookmarks: </h1>
 
-<%=Bookmark.print%>
+<ul>
+  <% Bookmark.all.each do |bookmark| %>
+    <li>
+      <a href="<%= bookmark.url %>">
+        <%= bookmark.title %>
+      </a>
+    </li>
+  <% end %>
+</ul>
 
 <form action='/new_bookmark' method='get'>
   <input type='submit' value='add_bookmark'>

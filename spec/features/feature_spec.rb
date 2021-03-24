@@ -15,7 +15,7 @@ feature '/bookmark' do
   scenario 'should serve bookmark page' do
     visit '/bookmark'
     expect(page).to have_content("Your Bookmarks:")
-    expect(page).to have_content("google")
+    expect(page).to have_content("Google")
   end
 
 
@@ -27,7 +27,7 @@ feature '/bookmark' do
       fill_in('title', :with => 'Makers')
       fill_in('bookmark', :with => 'www.makers.tech')
       click_on('bookmark')
-      expect(page).to have_content "www.makers.tech"
+      expect(page).to have_link(nil, href: "www.makers.tech")
     end
   end
 end
