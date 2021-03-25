@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'pg'
 require_relative 'lib/bookmark'
+require_relative 'db_connect_helper'
 
 class BookmarksManager < Sinatra::Base
 
