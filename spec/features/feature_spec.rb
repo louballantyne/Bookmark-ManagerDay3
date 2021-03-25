@@ -30,4 +30,12 @@ feature '/bookmark' do
       expect(page).to have_link(nil, href: "www.makers.tech")
     end
   end
+
+  feature "delete a bookmark" do
+    scenario "user will delete the selected bookmark from the database table" do
+      visit '/bookmark'
+      first('.bookmark').click_button 'Delete'
+      expect(page).not_to have_content("Makers Academy")
+    end
+  end
 end

@@ -15,7 +15,7 @@ describe Bookmark do
   end
   describe '#create' do
     it 'can create a new bookmark' do
-      bookmark = Bookmark.create('Makers','http://www.makers.tech')
+      bookmark = Bookmark.new('1','Makers','http://www.makers.tech')
       expect(bookmark.title).to eq "Makers"
       expect(bookmark.url).to eq "http://www.makers.tech"
     end
