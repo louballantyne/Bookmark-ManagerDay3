@@ -27,7 +27,7 @@ feature '/bookmark' do
       fill_in('title', :with => 'Makers')
       fill_in('bookmark', :with => 'www.makers.tech')
       click_on('bookmark')
-      expect(page).to have_link(nil, href: "www.makers.tech")
+      expect(page).to have_link('Makers', href: "www.makers.tech")
     end
   end
 
@@ -46,6 +46,18 @@ feature '/bookmark' do
       fill_in('url', :with => 'http://www.google.com')
       click_on 'Update'
       expect(page).to have_link('Google', href: "http://www.google.com")
+    end
+  end
+
+  feature 'User is unable to add an invalid bookmark - a flash error message is thrown' do
+    scenario 'User attempts to add an invalid URL' do
+      visit '/bookmark'
+      click_on('add_bookmark')
+      fill_in('title', :with => 'Makers')
+      fill_in('bookmark', :with => 'ww.makers.tech')
+      click_on('bookmark')
+      expect(page).not_to have_link('Makers', href: 'ww.makers.tech')
+      expect(page).to have_content('Please enter a valid URL.')
     end
   end
 end

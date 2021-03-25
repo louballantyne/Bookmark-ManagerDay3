@@ -2,10 +2,13 @@ require 'sinatra/base'
 require 'pg'
 require_relative 'lib/bookmark'
 require_relative 'db_connect_helper'
+require 'sinatra/flash'
+require 'uri'
 
 class BookmarksManager < Sinatra::Base
 
   enable :sessions, :method_override
+  register Sinatra::Flash
 
   get '/' do
     erb(:index)
@@ -20,8 +23,13 @@ class BookmarksManager < Sinatra::Base
   end
 
   post '/add_bookmark' do
-    Bookmark.create(params[:title], params[:bookmark])
-    redirect '/bookmark'
+    if params[:bookmark]=~ /\A#{URI::regexp(['http', 'https'])}\z/
+      Bookmark.create(params[:title], params[:bookmark])
+      redirect '/bookmark'
+    else
+      flash[:warning] = "Please enter a valid URL."
+      redirect '/new_bookmark'
+    end
   end
 
   delete '/bookmark/:id' do
