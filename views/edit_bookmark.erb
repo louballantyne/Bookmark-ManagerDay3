@@ -1,0 +1,13 @@
+
+<form action='/bookmark/<%=@id%>' method='post'>
+  <input type="hidden" name="_method" value="PUT">
+  <label for="title">Name of URL:</label>
+  <input type='text' name='title' value='<%=Bookmark.find(@id).title%>' required>
+  <label for="url">URL:</label>
+  <input type='text' name='url' value='<%=Bookmark.find(@id).url%>' required>
+  <input type='submit' value='Update Bookmark' name="update">
+</form>
+<br>
+<form action='/bookmark'>
+  <input type='submit' value='Cancel'>
+</form>

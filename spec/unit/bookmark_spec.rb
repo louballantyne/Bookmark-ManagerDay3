@@ -20,4 +20,21 @@ describe Bookmark do
       expect(bookmark.url).to eq "http://www.makers.tech"
     end
   end
+
+  describe '#delete' do
+    it 'can delete a bookmark' do
+      length = Bookmark.all.length
+      Bookmark.delete(Bookmark.all.first.id)
+      expect(Bookmark.all.length).not_to eq length
+    end
+  end
+
+  describe '#update' do
+    it 'can change a bookmark' do
+      id = Bookmark.all.first.id
+      Bookmark.update(id,'www.makers.tech', 'Makers')
+      Bookmark.all
+      expect(Bookmark.find(id).url).to eq 'www.makers.tech'
+    end
+  end
 end

@@ -1,4 +1,5 @@
 ENV['RACK_ENV'] = 'test'
+ENV['DATABASE']='test'
 require_relative "../app"
 require 'capybara'
 require 'capybara/rspec'
@@ -37,7 +38,6 @@ RSpec.configure do |config|
   # assertions if you prefer.
 
   config.before(:each) do
-    ENV['DATABASE']='bookmark_manager_test'
     clear_table
   end
 
@@ -121,7 +121,4 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-  config.after(:suite) do
-    ENV['DATABASE']='bookmark_manager'
-  end
 end

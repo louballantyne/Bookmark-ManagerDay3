@@ -38,4 +38,14 @@ feature '/bookmark' do
       expect(page).not_to have_content("Makers Academy")
     end
   end
+
+  feature 'update a bookmark' do
+    scenario 'User will change the address of the Makers bookmark' do
+      visit '/bookmark'
+      first('.bookmark').click_button 'Update'
+      fill_in('url', :with => 'http://www.google.com')
+      click_on 'Update'
+      expect(page).to have_link('Google', href: "http://www.google.com")
+    end
+  end
 end
