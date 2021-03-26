@@ -1,4 +1,5 @@
 require_relative 'db_connection'
+require_relative 'comment'
 
 class Bookmark
 attr_accessor :bookmark_list, :url, :title, :id
@@ -40,4 +41,15 @@ attr_accessor :bookmark_list, :url, :title, :id
     ENV['DATABASE'] == 'test' ? 'bookmark_manager_test' : 'bookmark_manager'
   end
 
+  def self.add_comment(id, comment)
+    DBConnection.connection.exec("INSERT INTO comments (text, bookmark_id) VALUES ('#{comment}', '#{id}')")
+  end
+
+  def self.get_comment(id)
+    @comments = []
+    DBConnection.connection.exec("SELECT * FROM comments WHERE bookmark_id = '#{id}'").map do |comment|
+      @comments << Comment.new(comment['id'], comment['text'], comment['bookmark_id'])
+    end
+    return @comments
+  end
 end

@@ -37,4 +37,11 @@ describe Bookmark do
       expect(Bookmark.find(id).url).to eq 'www.makers.tech'
     end
   end
+
+  describe '#add_comment' do
+    it 'adds a comment to the comments database using the urls id' do
+      Bookmark.add_comment('1', 'This is a comment')
+      expect(Bookmark.get_comment('1').first).to be_an_instance_of(Comment)
+    end
+  end
 end

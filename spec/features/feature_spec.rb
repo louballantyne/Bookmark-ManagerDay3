@@ -25,9 +25,9 @@ feature '/bookmark' do
       visit '/bookmark'
       click_on('add_bookmark')
       fill_in('title', :with => 'Makers')
-      fill_in('bookmark', :with => 'www.makers.tech')
+      fill_in('bookmark', :with => 'http://www.makers.tech')
       click_on('bookmark')
-      expect(page).to have_link('Makers', href: "www.makers.tech")
+      expect(page).to have_link('Makers', href: "http://www.makers.tech")
     end
   end
 
@@ -58,6 +58,16 @@ feature '/bookmark' do
       click_on('bookmark')
       expect(page).not_to have_link('Makers', href: 'ww.makers.tech')
       expect(page).to have_content('Please enter a valid URL.')
+    end
+  end
+
+  feature 'User can add comments' do
+    scenario 'A user can add a comment to a bookmark' do
+      visit '/bookmark'
+      first('.bookmark').click_button 'Add Comment'
+      fill_in 'comment', with: 'This is a comment'
+      click_button 'Submit'
+      expect(page).to have_content 'This is a comment'
     end
   end
 end
